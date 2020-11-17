@@ -26,8 +26,8 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                     stimulus: function() {
                         return `
                         <div class="differenceDetectionElement">
-                            <img class="differenceDetectionElement differenceDetectionImage" src=resources/"${jsPsychHandle.timelineVariable('leftImage', true)}"/>
-                            <img class="differenceDetectionElement differenceDetectionImage" src=resources/"${jsPsychHandle.timelineVariable('rightImage', true)}"/>
+                            <img class="differenceDetectionElement differenceDetectionImage" src="resources/${jsPsychHandle.timelineVariable('leftImage', true)}"/>
+                            <img class="differenceDetectionElement differenceDetectionImage" src="resources/${jsPsychHandle.timelineVariable('rightImage', true)}"/>
                         </div>`
                     },
                 }
