@@ -1,1 +1,13 @@
-/* Put special formatting here */
+.differenceDetectionElement {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.differenceDetectionImage {
+    width: 45%;
+    height: auto;
+}
+
+.jspsych-content-wrapper {
+    background-color: white;
+}
