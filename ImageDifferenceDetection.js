@@ -21,13 +21,17 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
             max: 7,
             labels: ['1', '2', '3', '4', '5', '6', '7'],
             button_label: 'Submit',
-            stimulus: function() {
-                return `
-                <div class="differenceDetectionElement">
-                    <img class="differenceDetectionElement differenceDetectionImage" src=resources/"${jsPsychHandle.timelineVariable('leftImage', true)}"/>
-                    <img class="differenceDetectionElement differenceDetectionImage" src=resources/"${jsPsychHandle.timelineVariable('rightImage', true)}"/>
-                </div>`
-            },
+            timeline: [
+                {
+                    stimulus: function() {
+                        return `
+                        <div class="differenceDetectionElement">
+                            <img class="differenceDetectionElement differenceDetectionImage" src=resources/"${jsPsychHandle.timelineVariable('leftImage', true)}"/>
+                            <img class="differenceDetectionElement differenceDetectionImage" src=resources/"${jsPsychHandle.timelineVariable('rightImage', true)}"/>
+                        </div>`
+                    },
+                }
+            ],
             timeline_variables: function() {
                 let images = []
                 for (let i = 0; i < 10; i++) {
