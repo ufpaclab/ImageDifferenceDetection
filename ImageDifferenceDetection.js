@@ -28,7 +28,10 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                         <div class="differenceDetectionElement">
                             <img class="differenceDetectionElement differenceDetectionImage" src="resources/${jsPsychHandle.timelineVariable('leftImage', true)}"/>
                             <img class="differenceDetectionElement differenceDetectionImage" src="resources/${jsPsychHandle.timelineVariable('rightImage', true)}"/>
-                        </div>`
+                        </div>
+                        <br></br>
+                        <p>Please rate the apparent difference between images (0 = identical, 4 = significant difference, 7 = unrelated images)</p>
+                        `
                     },
                 }
             ],
