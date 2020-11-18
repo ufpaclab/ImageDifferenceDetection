@@ -16,12 +16,12 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
 
         let differenceDetection = {
             type: 'html-slider-response',
-            start: 1,
-            min: 1,
+            start: 0,
+            min: 0,
             max: 100,
             labels: function() {
                 let labels = []
-                for (let i = 0; i < 100; i++) {
+                for (let i = 0; i <= 100; i++) {
                     if (i % 50 == 0)
                         labels.push(i.toString())
                     else 
