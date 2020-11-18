@@ -16,10 +16,19 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
 
         let differenceDetection = {
             type: 'html-slider-response',
-            start: 4,
+            start: 1,
             min: 1,
-            max: 7,
-            labels: ['1', '2', '3', '4', '5', '6', '7'],
+            max: 100,
+            labels: function() {
+                let labels = []
+                for (let i = 0; i < 100; i++) {
+                    if (i % 50 == 0)
+                        labels.push(i.toString())
+                    else 
+                        labels.push("")
+                }
+                return labels;
+            }(),
             button_label: 'Submit',
             timeline: [
                 {
@@ -30,7 +39,7 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                             <img class="differenceDetectionElement differenceDetectionImage" src="resources/${jsPsychHandle.timelineVariable('rightImage', true)}"/>
                         </div>
                         <br></br>
-                        <p>Please rate the apparent difference between images (0 = identical, 4 = significant difference, 7 = unrelated images)</p>
+                        <p>Please rate the apparent difference between images (0 = identical, 50 = significant difference, 100 = unrelated images)</p>
                         `
                     },
                 }
