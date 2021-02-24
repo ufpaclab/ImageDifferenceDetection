@@ -4,8 +4,9 @@
 }
 
 .differenceDetectionImage {
-    width: 40%;
-    height: auto;
+    max-width: 40vw;
+    height: 50vh;
+    width: auto;
 }
 
 .jspsych-content-wrapper {

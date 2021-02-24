@@ -40,10 +40,10 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
             ],
             timeline_variables: function() {
                 let images = []
-                for (let i = 0; i < 10; i++) {
+                for (let i = 0; i < IMAGE_MANIFEST.length; i++) {
                     images.push({
-                        leftImage: 'archery_2.jpg',
-                        rightImage: 'archery.jpeg'
+                        leftImage: `${IMAGE_MANIFEST[i].name}.${IMAGE_MANIFEST[i].extension}`,
+                        rightImage: `${IMAGE_MANIFEST[i].name}_2.${IMAGE_MANIFEST[i].extension}`
                     })
                 }
                 return images;
