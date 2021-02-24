@@ -84,7 +84,7 @@ const IMAGE_MANIFEST = [
         extension: 'jpg',
     },
     {
-        name: 'kide with teddy',
+        name: 'kid with teddy',
         extension: 'jpg',
     },
     {
