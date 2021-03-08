@@ -51,13 +51,14 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                 <p>Press any key to begin.</p>
             `
         }
-
         let differenceDetection = {
             type: 'html-slider-response',
+            slider_width: 500,
             start: 1,
             min: jsPsychHandle.timelineVariable('min'),
             max: jsPsychHandle.timelineVariable('max'),
             button_label: 'Submit',
+            labels: [jsPsychHandle.timelineVariable('leftLabel'), jsPsychHandle.timelineVariable('rightLabel')],
             timeline: [
                 {
                     stimulus: function() {
@@ -67,10 +68,6 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                             <img class="differenceDetectionElement differenceDetectionImage" src="resources/${jsPsychHandle.timelineVariable('rightImage', true)}"/>
                         </div>
                         <p>${jsPsychHandle.timelineVariable('question', true)}</p>
-                        <div style="overflow: hidden">
-                            <p style="float: left; padding-left: 10%">${jsPsychHandle.timelineVariable('leftLabel', true)}</p>
-                            <p style="float: right; padding-right: 10%">${jsPsychHandle.timelineVariable('rightLabel', true)}</p>
-                        </div>
                         `
                     },
                 }
