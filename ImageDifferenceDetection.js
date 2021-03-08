@@ -7,24 +7,39 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
 
         const IMAGE_QUESTIONS = [
             {
+                question: 'How much does the meaning change from one picture to the other?',
+                leftLabel: 'Insignificant Change',
+                rightLabel: 'Very Significant Change',
+                min: 0,
+                max: 7
+            },
+            {
                 question: 'How weird is the image?',
                 leftLabel: 'Very Normal',
-                rightLabel: 'Very Weird'
+                rightLabel: 'Very Weird',
+                min: 0,
+                max: 7
             },
             {
                 question: 'How likely is it to see this image in the real world?',
                 leftLabel: 'Very Unlikely',
-                rightLabel: 'Very Likely'
+                rightLabel: 'Very Likely',
+                min: 0,
+                max: 7
             },
             {
                 question: 'How hard is it to identify the object?',
                 leftLabel: 'Very Easy',
-                rightLabel: 'Very Hard'
+                rightLabel: 'Very Hard',
+                min: 0,
+                max: 7
             },
             {
                 question: 'How visually complicated is the image?',
                 leftLabel: 'Very Simple',
-                rightLabel: 'Very Complicated'
+                rightLabel: 'Very Complicated',
+                min: 0,
+                max: 7
             }
         ]
 
@@ -51,11 +66,10 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                             <img class="differenceDetectionElement differenceDetectionImage" src="resources/${jsPsychHandle.timelineVariable('leftImage', true)}"/>
                             <img class="differenceDetectionElement differenceDetectionImage" src="resources/${jsPsychHandle.timelineVariable('rightImage', true)}"/>
                         </div>
-                        <br></br>
                         <p>${jsPsychHandle.timelineVariable('question', true)}</p>
                         <div style="overflow: hidden">
-                            <p style="float: left">${jsPsychHandle.timelineVariable('leftLabel', true)}</p>
-                            <p style="float: right">${jsPsychHandle.timelineVariable('rightLabel', true)}</p>
+                            <p style="float: left; padding-left: 10%">${jsPsychHandle.timelineVariable('leftLabel', true)}</p>
+                            <p style="float: right; padding-right: 10%">${jsPsychHandle.timelineVariable('rightLabel', true)}</p>
                         </div>
                         `
                     },
@@ -64,15 +78,6 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
             timeline_variables: function() {
                 let variables = []
                 for (let image = 0; image < IMAGE_MANIFEST.length; image++) {
-                    variables.push({
-                        leftImage: `${IMAGE_MANIFEST[image].name}.${IMAGE_MANIFEST[image].extension}`,
-                        rightImage: `${IMAGE_MANIFEST[image].name}_2.${IMAGE_MANIFEST[image].extension}`,
-                        question: 'How much does the meaning change from one picture to the other?',
-                        leftLabel: 'Insignificant Change',
-                        rightLabel: 'Very Significant Change',
-                        min: 0,
-                        max: 100
-                    });
                     for (let question = 0; question < IMAGE_QUESTIONS.length; question++) {
                         variables.push({
                             leftImage: `${IMAGE_MANIFEST[image].name}.${IMAGE_MANIFEST[image].extension}`,
@@ -80,8 +85,8 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                             question: IMAGE_QUESTIONS[question].question,
                             leftLabel: IMAGE_QUESTIONS[question].leftLabel,
                             rightLabel: IMAGE_QUESTIONS[question].rightLabel,
-                            min: 0,
-                            max: 7
+                            min: IMAGE_QUESTIONS[question].min,
+                            max: IMAGE_QUESTIONS[question].max
                         })
                     }
                 }
