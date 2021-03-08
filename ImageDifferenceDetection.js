@@ -10,35 +10,35 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                 question: 'How much does the meaning change from one picture to the other?',
                 leftLabel: 'Insignificant Change',
                 rightLabel: 'Very Significant Change',
-                min: 0,
+                min: 1,
                 max: 7
             },
             {
                 question: 'How weird is the image?',
                 leftLabel: 'Very Normal',
                 rightLabel: 'Very Weird',
-                min: 0,
+                min: 1,
                 max: 7
             },
             {
                 question: 'How likely is it to see this image in the real world?',
                 leftLabel: 'Very Unlikely',
                 rightLabel: 'Very Likely',
-                min: 0,
+                min: 1,
                 max: 7
             },
             {
                 question: 'How hard is it to identify the object?',
                 leftLabel: 'Very Easy',
                 rightLabel: 'Very Hard',
-                min: 0,
+                min: 1,
                 max: 7
             },
             {
                 question: 'How visually complicated is the image?',
                 leftLabel: 'Very Simple',
                 rightLabel: 'Very Complicated',
-                min: 0,
+                min: 1,
                 max: 7
             }
         ]
@@ -54,7 +54,7 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
 
         let differenceDetection = {
             type: 'html-slider-response',
-            start: 0,
+            start: 1,
             min: jsPsychHandle.timelineVariable('min'),
             max: jsPsychHandle.timelineVariable('max'),
             button_label: 'Submit',
