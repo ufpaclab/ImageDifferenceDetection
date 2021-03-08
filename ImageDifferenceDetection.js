@@ -7,11 +7,6 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
 
         const IMAGE_QUESTIONS = [
             {
-                question: 'How much does the meaning change from one picture to the other?',
-                leftLabel: 'Insignificant Change',
-                rightLabel: 'Very Significant Change'
-            },
-            {
                 question: 'How weird is the image?',
                 leftLabel: 'Very Normal',
                 rightLabel: 'Very Weird'
@@ -45,8 +40,8 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
         let differenceDetection = {
             type: 'html-slider-response',
             start: 0,
-            min: 0,
-            max: 100,
+            min: jsPsychHandle.timelineVariable('min'),
+            max: jsPsychHandle.timelineVariable('max'),
             button_label: 'Submit',
             timeline: [
                 {
@@ -69,13 +64,24 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
             timeline_variables: function() {
                 let variables = []
                 for (let image = 0; image < IMAGE_MANIFEST.length; image++) {
+                    variables.push({
+                        leftImage: `${IMAGE_MANIFEST[image].name}.${IMAGE_MANIFEST[image].extension}`,
+                        rightImage: `${IMAGE_MANIFEST[image].name}_2.${IMAGE_MANIFEST[image].extension}`,
+                        question: 'How much does the meaning change from one picture to the other?',
+                        leftLabel: 'Insignificant Change',
+                        rightLabel: 'Very Significant Change',
+                        min: 0,
+                        max: 100
+                    });
                     for (let question = 0; question < IMAGE_QUESTIONS.length; question++) {
                         variables.push({
                             leftImage: `${IMAGE_MANIFEST[image].name}.${IMAGE_MANIFEST[image].extension}`,
                             rightImage: `${IMAGE_MANIFEST[image].name}_2.${IMAGE_MANIFEST[image].extension}`,
                             question: IMAGE_QUESTIONS[question].question,
                             leftLabel: IMAGE_QUESTIONS[question].leftLabel,
-                            rightLabel: IMAGE_QUESTIONS[question].rightLabel
+                            rightLabel: IMAGE_QUESTIONS[question].rightLabel,
+                            min: 0,
+                            max: 7
                         })
                     }
                 }
