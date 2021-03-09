@@ -6,41 +6,7 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
         const CONTACT_EMAIL = 'fake@email.com'
 
         const IMAGE_QUESTIONS = [
-            {
-                question: 'How much does the meaning change from one picture to the other?',
-                leftLabel: 'Insignificant Change',
-                rightLabel: 'Very Significant Change',
-                min: 1,
-                max: 7
-            },
-            {
-                question: 'How weird is the image?',
-                leftLabel: 'Very Normal',
-                rightLabel: 'Very Weird',
-                min: 1,
-                max: 7
-            },
-            {
-                question: 'How likely is it to see this image in the real world?',
-                leftLabel: 'Very Unlikely',
-                rightLabel: 'Very Likely',
-                min: 1,
-                max: 7
-            },
-            {
-                question: 'How hard is it to identify the object?',
-                leftLabel: 'Very Easy',
-                rightLabel: 'Very Hard',
-                min: 1,
-                max: 7
-            },
-            {
-                question: 'How visually complicated is the image?',
-                leftLabel: 'Very Simple',
-                rightLabel: 'Very Complicated',
-                min: 1,
-                max: 7
-            }
+            
         ]
 
         // Define Experiment Trials
@@ -51,41 +17,52 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                 <p>Press any key to begin.</p>
             `
         }
+
         let differenceDetection = {
-            type: 'html-slider-response',
-            slider_width: 500,
-            start: 1,
-            min: jsPsychHandle.timelineVariable('min'),
-            max: jsPsychHandle.timelineVariable('max'),
+            type: 'survey-likert',
+            scale_width: 500,
             button_label: 'Submit',
-            labels: [jsPsychHandle.timelineVariable('leftLabel'), jsPsychHandle.timelineVariable('rightLabel')],
             timeline: [
                 {
-                    stimulus: function() {
+                    preamble: function() {
                         return `
                         <div class="differenceDetectionElement">
                             <img class="differenceDetectionElement differenceDetectionImage" src="resources/${jsPsychHandle.timelineVariable('leftImage', true)}"/>
                             <img class="differenceDetectionElement differenceDetectionImage" src="resources/${jsPsychHandle.timelineVariable('rightImage', true)}"/>
                         </div>
-                        <p>${jsPsychHandle.timelineVariable('question', true)}</p>
                         `
                     },
+                    questions: [
+                        {
+                            prompt: 'How much does the meaning change from one picture to the other?',
+                            labels: ['Insignificant Change', '', '', '', '', '', 'Very Significant Change']
+                        },
+                        {
+                            prompt: 'How weird is the image?',
+                            labels: ['Very Normal', '', '', '', '', '', 'Very Weird']
+                        },
+                        {
+                            prompt: 'How likely is it to see this image in the real world?',
+                            labels: ['Very Unlikely', '', '', '', '', '', 'Very Likely']
+                        },
+                        {
+                            prompt: 'How hard is it to identify the object?',
+                            labels: ['Very Easy', '', '', '', '', '', 'Very Hard']
+                        },
+                        {
+                            prompt: 'How visually complicated is the image?',
+                            labels: ['Very Simple', '', '', '', '', '', 'Very Complicated']
+                        }
+                    ]
                 }
             ],
             timeline_variables: function() {
                 let variables = []
                 for (let image = 0; image < IMAGE_MANIFEST.length; image++) {
-                    for (let question = 0; question < IMAGE_QUESTIONS.length; question++) {
-                        variables.push({
-                            leftImage: `${IMAGE_MANIFEST[image].name}.${IMAGE_MANIFEST[image].extension}`,
-                            rightImage: `${IMAGE_MANIFEST[image].name}_2.${IMAGE_MANIFEST[image].extension}`,
-                            question: IMAGE_QUESTIONS[question].question,
-                            leftLabel: IMAGE_QUESTIONS[question].leftLabel,
-                            rightLabel: IMAGE_QUESTIONS[question].rightLabel,
-                            min: IMAGE_QUESTIONS[question].min,
-                            max: IMAGE_QUESTIONS[question].max
-                        })
-                    }
+                    variables.push({
+                        leftImage: `${IMAGE_MANIFEST[image].name}.${IMAGE_MANIFEST[image].extension}`,
+                        rightImage: `${IMAGE_MANIFEST[image].name}_2.${IMAGE_MANIFEST[image].extension}`,
+                    })
                 }
                 return variables;
             }()

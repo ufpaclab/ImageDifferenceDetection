@@ -16,3 +16,7 @@
 #jspsych-html-slider-response-wrapper {
     margin: 0 0 !important;
 }
+
+#jspsych-survey-likert-preamble {
+    margin: 3vh 0px 0px 0px ;
+}
