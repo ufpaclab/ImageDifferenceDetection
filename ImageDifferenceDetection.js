@@ -5,10 +5,6 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
         // Define Constants
         const CONTACT_EMAIL = 'fake@email.com'
 
-        const IMAGE_QUESTIONS = [
-            
-        ]
-
         // Define Experiment Trials
         let welcomeTrial = {
             type: 'html-keyboard-response',
