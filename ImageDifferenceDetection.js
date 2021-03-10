@@ -14,45 +14,53 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
             `
         }
 
+        function createDifferenceDetectionStimulus(suffix = '') {
+            return () => `
+            <div class="differenceDetectionElement differenceDetectionContainer">
+                <img class="differenceDetectionElement differenceDetectionImage" src="resources/${jsPsychHandle.timelineVariable('leftImage', true)}"/>
+                <img class="differenceDetectionElement differenceDetectionImage" src="resources/${jsPsychHandle.timelineVariable('rightImage', true)}"/>
+            </div>
+            <div>${suffix}</div>`
+        };
+
+        function createStandardLikert(question, leftlabel, rightlabel, scale) {
+            return {
+                type: 'survey-likert',
+                scale_width: 500,
+                preamble: createDifferenceDetectionStimulus(),
+                questions: [
+                    {
+                        prompt: question,
+                        labels: function() {
+                            let labels = [];
+                            labels.push(leftlabel);
+                            for (let i = 0; i < scale - 2; i++)
+                                labels.push('');
+                            labels.push(rightlabel);
+                            return labels;
+                        }()
+                    }
+                ]
+            }
+        };
+
         let differenceDetection = {
-            type: 'survey-likert',
-            scale_width: 500,
             button_label: 'Submit',
             timeline: [
                 {
-                    preamble: function() {
-                        return `
-                        <div class="differenceDetectionElement">
-                            <img class="differenceDetectionElement differenceDetectionImage" src="resources/${jsPsychHandle.timelineVariable('leftImage', true)}"/>
-                            <img class="differenceDetectionElement differenceDetectionImage" src="resources/${jsPsychHandle.timelineVariable('rightImage', true)}"/>
-                        </div>
-                        `
-                    },
-                    questions: [
-                        {
-                            prompt: 'How much does the meaning change from one picture to the other?',
-                            labels: ['Insignificant Change', '', '', '', '', '', 'Very Significant Change']
-                        },
-                        {
-                            prompt: 'How weird is the image?',
-                            labels: ['Very Normal', '', '', '', '', '', 'Very Weird']
-                        },
-                        {
-                            prompt: 'How likely is it to see this image in the real world?',
-                            labels: ['Very Unlikely', '', '', '', '', '', 'Very Likely']
-                        },
-                        {
-                            prompt: 'How hard is it to identify the object?',
-                            labels: ['Very Easy', '', '', '', '', '', 'Very Hard']
-                        },
-                        {
-                            prompt: 'How visually complicated is the image?',
-                            labels: ['Very Simple', '', '', '', '', '', 'Very Complicated']
-                        }
-                    ]
-                }
+                    stimulus: createDifferenceDetectionStimulus('How much does the meaning change from one picture to the other? '),
+                    type: 'html-slider-response',
+                    slider_width: 500,
+                    start: () => Math.random() * 100,
+                    labels: ['Insignificant Change', 'Very Significant Change'],
+                },
+                createStandardLikert('How weird is the image?', 'Very Normal', 'Very Weird', 7),
+                createStandardLikert('How likely is it to see this image in the real world?', 'Very Unlikely', 'Very Likely', 7),
+                createStandardLikert('How hard is it to identify the object?', 'Very Easy', 'Very Hard', 7),
+                createStandardLikert('How visually complicated is the image?', 'Very Simple', 'Very Complicated', 7)
             ],
             timeline_variables: function() {
+                
                 let variables = []
                 for (let image = 0; image < IMAGE_MANIFEST.length; image++) {
                     variables.push({

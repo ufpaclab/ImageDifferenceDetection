@@ -1,11 +1,14 @@
+.differenceDetectionContainer {
+    width: 100%;
+}
+
 .differenceDetectionElement {
     display: inline-block;
     vertical-align: middle;
 }
 
 .differenceDetectionImage {
-    height: 40vh;
-    width: auto;
+    width: 40%;
 }
 
 .jspsych-content-wrapper {
