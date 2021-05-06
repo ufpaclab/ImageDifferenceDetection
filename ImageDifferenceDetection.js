@@ -14,6 +14,53 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
             `
         }
 
+        let consentFormTrial = {
+            type: 'external-html',
+            url: 'resources/Consent.html',
+            cont_btn: 'consent-button'
+        }
+
+        let experimentInstructionsTrial = {
+            type: 'instructions',
+            show_clickable_nav: true,
+            pages: [
+                '<h1> Welcome to the Experiment </h1>' + 
+                '<p>Welcome to the experiment! In this task, you will be asked to provide ratings' + 
+                ' about pairs of images. Each pair of images contains a specific change, and we will' +
+                ' ask you questions about it.</p>'
+                ,
+                '<p>For each pair of pictures, we will ask you how much the <b>meaning</b> changes from' +
+                ' one picture to another.</p>' + 
+                '<img class="differenceDetectionElement differenceDetectionImage" src="resources/soldier with kids 2.jpg"></img>' +
+                '<img class="differenceDetectionElement differenceDetectionImage" src="resources/soldier with kids 2_2.jpg"></img>' +
+                '<p>Above is an example where the meaning has a <b>Very Significant Change</b>.</p>' +
+                '<img class="differenceDetectionElement differenceDetectionImage" src="resources/joshua tree.jpg"></img>' +
+                '<img class="differenceDetectionElement differenceDetectionImage" src="resources/joshua tree_2.jpg"></img>' +
+                '<p>Above is an example where the meaning has an <b>Insignificant Change</b>.</p>'
+                ,
+                '<p>For each pair of pictures, we will also ask you how <b>likely</b> it is for the <b>right image</b> to <b>appear in the real world</b>.</p>' +
+                '<img class="differenceDetectionElement differenceDetectionImage" src="resources/kid eating cereal.jpg"></img>' +
+                '<img class="differenceDetectionElement differenceDetectionImage" src="resources/kid eating cereal_2.jpg"></img>' +
+                '<p>Above is an example where the right image is <b>Very Unlikely</b> to appear in the real world.</p>' +
+                '<img class="differenceDetectionElement differenceDetectionImage" src="resources/graduation.jpg"></img>' +
+                '<img class="differenceDetectionElement differenceDetectionImage" src="resources/graduation_2.jpg"></img>' +
+                '<p>Above is an example where the right image is <b>Very Likely</b> to appear in the real world.</p>'
+                ,
+                '<p>For each pair of pictures, we will also ask you how <b>complicated</b> the images are.</p>' +
+                '<img class="differenceDetectionElement differenceDetectionImage" src="resources/fruit market stand.jpg"></img>' +
+                '<img class="differenceDetectionElement differenceDetectionImage" src="resources/fruit market stand_2.jpg"></img>' +
+                '<p>Above is an example where the images are <b>Very Complicated</b></p>' +
+                '<img class="differenceDetectionElement differenceDetectionImage" src="resources/dumbo.jpg"></img>' +
+                '<img class="differenceDetectionElement differenceDetectionImage" src="resources/dumbo_2.jpg"></img>' +
+                '<p>Above is an example where the images are <b>Very Simple</b></p>'
+                ,
+                '<p>Finally, we will also ask you about how hard it is to identify the change between the images in a given pair.</p>' +
+                '<p>We will not give you a reference for this question. Simply report how hard it was for <b>you</b> to identify the difference.</p>'
+                ,
+                '<p>When you are ready, continue to the experiment. Please do your best to provide quick and accurate ratings. Thank you in advance for your hard work!</p>'
+            ]
+        }
+
         function createDifferenceDetectionStimulus(suffix = '') {
             return () => `
             <div class="differenceDetectionElement differenceDetectionContainer">
@@ -44,28 +91,32 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
             }
         };
 
+        function createContinuousSlider(question, leftlabel, rightlabel) {
+            return {
+                stimulus: createDifferenceDetectionStimulus(question),
+                type: 'html-slider-response',
+                slider_width: 500,
+                start: () => Math.random() * 100,
+                labels: [leftlabel, rightlabel],
+            }
+        }
+
         let differenceDetection = {
             button_label: 'Submit',
             timeline: [
-                {
-                    stimulus: createDifferenceDetectionStimulus('How much does the meaning change from one picture to the other? '),
-                    type: 'html-slider-response',
-                    slider_width: 500,
-                    start: () => Math.random() * 100,
-                    labels: ['Insignificant Change', 'Very Significant Change'],
-                },
-                createStandardLikert('How weird is the image?', 'Very Normal', 'Very Weird', 7),
-                createStandardLikert('How likely is it to see this image in the real world?', 'Very Unlikely', 'Very Likely', 7),
-                createStandardLikert('How hard is it to identify the object?', 'Very Easy', 'Very Hard', 7),
-                createStandardLikert('How visually complicated is the image?', 'Very Simple', 'Very Complicated', 7)
+                createContinuousSlider('How much does the meaning change from one picture to the other?', 'Insignificant Change', 'Very Significant Change'),
+                createStandardLikert('How likely is it for the <b>right image</b> to appear in the real world?', 'Very Unlikely', 'Very Likely', 7),
+                createStandardLikert('How visually complicated are the images?', 'Very Simple', 'Very Complicated', 7),
+                createStandardLikert('How hard is it to identify the change in the image?', 'Very Easy', 'Very Hard', 7)
             ],
             timeline_variables: function() {
                 
                 let variables = []
-                for (let image = 0; image < IMAGE_MANIFEST.length; image++) {
+                let images = jsPsych.randomization.sampleWithoutReplacement(IMAGE_MANIFEST, 50);
+                for (let i = 0; i < images.length; i++) {
                     variables.push({
-                        leftImage: `${IMAGE_MANIFEST[image].name}.${IMAGE_MANIFEST[image].extension}`,
-                        rightImage: `${IMAGE_MANIFEST[image].name}_2.${IMAGE_MANIFEST[image].extension}`,
+                        leftImage: `${images[i].name}.${images[i].extension}`,
+                        rightImage: `${images[i].name}_2.${images[i].extension}`,
                     })
                 }
                 return variables;
@@ -74,12 +125,12 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
 
         let finalTrial = {
             type: 'instructions',
-            pages: [`Thanks for participating! Please email us at ${CONTACT_EMAIL}. Push the right arrow key to recieve credit.`]
+            pages: [`Thanks for participating! Please email us at ${CONTACT_EMAIL}. Push the right arrow key to finish the experiment.`]
         }
 
         // Configure and Start Experiment
         jsPsychHandle.init({
-            timeline: [welcomeTrial, differenceDetection, finalTrial],
+            timeline: [welcomeTrial, consentFormTrial, experimentInstructionsTrial, differenceDetection, finalTrial],
             on_trial_finish: session.insert,
             on_finish: function() { document.write("<h1>Experiment Complete</h1>") }
         })
