@@ -30,26 +30,32 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                 ' ask you questions about it.</p>'
                 ,
                 '<p>For each pair of pictures, we will ask you how much the <b>meaning</b> changes from' +
-                ' one picture to another.</p>' + 
+                ' one picture to another.</p>'
+                ,
                 '<img class="differenceDetectionElement differenceDetectionImage" src="resources/soldier with kids 2.jpg"></img>' +
                 '<img class="differenceDetectionElement differenceDetectionImage" src="resources/soldier with kids 2_2.jpg"></img>' +
-                '<p>Above is an example where the meaning has a <b>Very Significant Change</b>.</p>' +
-                '<img class="differenceDetectionElement differenceDetectionImage" src="resources/joshua tree.jpg"></img>' +
-                '<img class="differenceDetectionElement differenceDetectionImage" src="resources/joshua tree_2.jpg"></img>' +
+                '<p>Above is an example where the meaning has a <b>Very Significant Change</b>.</p>'
+                ,
+                '<img class="differenceDetectionElement differenceDetectionImage" src="resources/casino.jpg"></img>' +
+                '<img class="differenceDetectionElement differenceDetectionImage" src="resources/casino_2.jpg"></img>' +
                 '<p>Above is an example where the meaning has an <b>Insignificant Change</b>.</p>'
                 ,
-                '<p>For each pair of pictures, we will also ask you how <b>likely</b> it is for the <b>right image</b> to <b>appear in the real world</b>.</p>' +
+                '<p>For each pair of pictures, we will also ask you how <b>likely</b> it is for the <b>right image</b> to <b>appear in the real world</b>.</p>'
+                ,
                 '<img class="differenceDetectionElement differenceDetectionImage" src="resources/kid eating cereal.jpg"></img>' +
                 '<img class="differenceDetectionElement differenceDetectionImage" src="resources/kid eating cereal_2.jpg"></img>' +
-                '<p>Above is an example where the right image is <b>Very Unlikely</b> to appear in the real world.</p>' +
+                '<p>Above is an example where the right image is <b>Very Unlikely</b> to appear in the real world.</p>'
+                ,
                 '<img class="differenceDetectionElement differenceDetectionImage" src="resources/graduation.jpg"></img>' +
                 '<img class="differenceDetectionElement differenceDetectionImage" src="resources/graduation_2.jpg"></img>' +
                 '<p>Above is an example where the right image is <b>Very Likely</b> to appear in the real world.</p>'
                 ,
-                '<p>For each pair of pictures, we will also ask you how <b>complicated</b> the images are.</p>' +
+                '<p>For each pair of pictures, we will also ask you how <b>complicated</b> the images are.</p>'
+                ,
                 '<img class="differenceDetectionElement differenceDetectionImage" src="resources/fruit market stand.jpg"></img>' +
                 '<img class="differenceDetectionElement differenceDetectionImage" src="resources/fruit market stand_2.jpg"></img>' +
-                '<p>Above is an example where the images are <b>Very Complicated</b></p>' +
+                '<p>Above is an example where the images are <b>Very Complicated</b></p>'
+                ,
                 '<img class="differenceDetectionElement differenceDetectionImage" src="resources/dumbo.jpg"></img>' +
                 '<img class="differenceDetectionElement differenceDetectionImage" src="resources/dumbo_2.jpg"></img>' +
                 '<p>Above is an example where the images are <b>Very Simple</b></p>'
