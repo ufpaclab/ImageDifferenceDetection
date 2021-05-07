@@ -40,15 +40,15 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                 '<img class="differenceDetectionElement differenceDetectionImage" src="resources/casino_2.jpg"></img>' +
                 '<p>Above is an example where the meaning has an <b>Insignificant Change</b>.</p>'
                 ,
-                '<p>For each pair of pictures, we will also ask you how <b>likely</b> it is for the <b>right image</b> to <b>appear in the real world</b>.</p>'
+                '<p>For each pair of pictures, we will also ask you how <b>likely</b> it is for the <b>image on the right</b> to appear in the real world.</p>'
                 ,
                 '<img class="differenceDetectionElement differenceDetectionImage" src="resources/kid eating cereal.jpg"></img>' +
                 '<img class="differenceDetectionElement differenceDetectionImage" src="resources/kid eating cereal_2.jpg"></img>' +
-                '<p>Above is an example where the right image is <b>Very Unlikely</b> to appear in the real world.</p>'
+                '<p>Above is an example where the image on the right is <b>Very Unlikely</b> to appear in the real world.</p>'
                 ,
                 '<img class="differenceDetectionElement differenceDetectionImage" src="resources/graduation.jpg"></img>' +
                 '<img class="differenceDetectionElement differenceDetectionImage" src="resources/graduation_2.jpg"></img>' +
-                '<p>Above is an example where the right image is <b>Very Likely</b> to appear in the real world.</p>'
+                '<p>Above is an example where the image on the right is <b>Very Likely</b> to appear in the real world.</p>'
                 ,
                 '<p>For each pair of pictures, we will also ask you how <b>complicated</b> the images are.</p>'
                 ,
@@ -111,7 +111,7 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
             button_label: 'Submit',
             timeline: [
                 createContinuousSlider('How much does the meaning change from one picture to the other?', 'Insignificant Change', 'Very Significant Change'),
-                createStandardLikert('How likely is it for the <b>right image</b> to appear in the real world?', 'Very Unlikely', 'Very Likely', 7),
+                createStandardLikert('How likely is it for the <b>image on the right</b> to appear in the real world?', 'Very Unlikely', 'Very Likely', 7),
                 createStandardLikert('How visually complicated are the images?', 'Very Simple', 'Very Complicated', 7),
                 createStandardLikert('How hard is it to identify the change in the image?', 'Very Easy', 'Very Hard', 7)
             ],
