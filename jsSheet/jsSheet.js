@@ -8,6 +8,12 @@ const jsSheet = {
           id: id,
           insert: function(data) {
             google.script.run.withFailureHandler(onFailure).Insert(id, data)
+          },
+          getImageUsage: function(imageList, callback) {
+            google.script.run.withFailureHandler(onFailure).withSuccessHandler(callback).GetImageUsage(imageList)
+          },
+          updateImageUsage: function(imageList) {
+            google.script.run.withFailureHandler(onFailure).updateImageUsage(imageList)
           }
         })
       }
@@ -16,7 +22,11 @@ const jsSheet = {
       console.error("\"google\" not defined: running in debug mode")
       onSuccess({
         id: -1,
-        insert: function() {}
+        insert: function() {},
+        getImageUsage: function(imageList, callback) {
+          callback(imageList)
+        },
+        updateImageUsage: function() {}
       })
     }
   }

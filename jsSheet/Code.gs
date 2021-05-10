@@ -6,7 +6,7 @@ function doGet(e) {
 
 function GetSessionID() {
   var lock = LockService.getScriptLock()
-  lock.waitLock(30000)
+  lock.waitLock(3000)
   
   var scriptProperties = PropertiesService.getScriptProperties()
   var currentID = ReadOrCreateProperty_(scriptProperties, 'sessionId', '0')
@@ -22,7 +22,7 @@ function Insert(id, data) {
   var scriptProperties = PropertiesService.getScriptProperties()
   
   var lock = LockService.getScriptLock()
-  lock.waitLock(30000)
+  lock.waitLock(3000)
   
   var keyCount = ReadOrCreateProperty_(scriptProperties, 'keyCount', '1')
   keyCount = parseInt(keyCount)
@@ -46,6 +46,28 @@ function Insert(id, data) {
   }
   sheet.appendRow(paddedData)
   lock.releaseLock()
+}
+
+const IMAGE_USAGE_PREFIX = "imageList_"
+
+function GetImageUsage(imageList) {
+  var scriptProperties = PropertiesService.getScriptProperties()
+  
+  let imageTable = {};
+  for (let image of imageList) {
+    imageTable[image] = ReadOrCreateProperty_(scriptProperties, IMAGE_USAGE_PREFIX + image, 0)
+  }
+
+  return imageTable;
+}
+
+function UpdateImageUsage(imageList) {
+  var scriptProperties = PropertiesService.getScriptProperties()
+
+  for (let image of imageList) {
+    let currentImageCount = parseInt(ReadOrCreateProperty_(scriptProperties, IMAGE_USAGE_PREFIX + image, 0))
+    scriptProperties.setProperty(IMAGE_USAGE_PREFIX + image, currentImageCount + 1)
+  }
 }
 
 function ReadOrCreateProperty_(properties, key, defaultValue) {

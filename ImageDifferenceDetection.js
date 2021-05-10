@@ -1,7 +1,17 @@
 function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
-    jsSheetHandle.CreateSession(RunExperiment)
+    jsSheetHandle.CreateSession(ChooseImageSet)
 
-    function RunExperiment(session) {
+    function ChooseImageSet(session) {
+        const IMAGES_PER_SUBJECT = 40
+        session.getImageUsage(IMAGE_MANIFEST, (manifest) => {
+            console.log(manifest)
+            manifest.sort((a, b) => a.usage > b.usage)
+            let filteredManifest = manifest.slice(0, IMAGES_PER_SUBJECT)
+            RunExperiment(session, filteredManifest)
+        })
+    }
+
+    function RunExperiment(session, manifest) {
         // Define Constants
         const CONTACT_EMAIL = 'fake@email.com'
 
@@ -118,7 +128,7 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
             timeline_variables: function() {
                 
                 let variables = []
-                let images = jsPsych.randomization.sampleWithoutReplacement(IMAGE_MANIFEST, 50);
+                let images = jsPsych.randomization.sampleWithoutReplacement(manifest);
                 for (let i = 0; i < images.length; i++) {
                     variables.push({
                         leftImage: `${images[i].name}.${images[i].extension}`,
@@ -136,9 +146,18 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
 
         // Configure and Start Experiment
         jsPsychHandle.init({
-            timeline: [welcomeTrial, consentFormTrial, experimentInstructionsTrial, differenceDetection, finalTrial],
+            timeline: [
+                welcomeTrial,
+                consentFormTrial,
+                experimentInstructionsTrial,
+                differenceDetection,
+                finalTrial
+            ],
             on_trial_finish: session.insert,
-            on_finish: function() { document.write("<h1>Experiment Complete</h1>") }
+            on_finish: function() { 
+                session.updateImageUsage(manifest)
+                document.write("<h1>Experiment Complete</h1>")
+            }
         })
     }
 }
