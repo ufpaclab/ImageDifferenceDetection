@@ -9,7 +9,7 @@ function GetSessionID() {
   lock.waitLock(3000)
   
   var scriptProperties = PropertiesService.getScriptProperties()
-  var currentID = ReadOrCreateProperty_(scriptProperties, 'sessionId', '0')
+  var currentID = ReadOrCreateProperty_('sessionId', '0')
   var newID = parseInt(currentID) + 1
   scriptProperties.setProperty('sessionId', newID.toString())
   
@@ -24,13 +24,13 @@ function Insert(id, data) {
   var lock = LockService.getScriptLock()
   lock.waitLock(3000)
   
-  var keyCount = ReadOrCreateProperty_(scriptProperties, 'keyCount', '1')
+  var keyCount = ReadOrCreateProperty_('keyCount', '1')
   keyCount = parseInt(keyCount)
   
   var paddedData = [id]
   var keys = Object.keys(data)
   for (var key of keys) {
-    var keyIndex = ReadOrCreateProperty_(scriptProperties, key, keyCount)
+    var keyIndex = ReadOrCreateProperty_(key, keyCount)
     if (keyIndex == keyCount)
       keyCount++
 
@@ -54,7 +54,8 @@ function GetImageUsage(imageManifest) {
   var scriptProperties = PropertiesService.getScriptProperties()
   
   for (let image in imageManifest) {
-    imageManifest[image].usage = ReadOrCreateProperty_(scriptProperties, IMAGE_USAGE_PREFIX + image, 0)
+    let propertyName = IMAGE_USAGE_PREFIX + imageManifest[image].name;
+    imageManifest[image].usage = ReadOrCreateProperty_(propertyName, 0)
   }
 
   return imageManifest;
@@ -64,16 +65,26 @@ function UpdateImageUsage(imageManifest) {
   var scriptProperties = PropertiesService.getScriptProperties()
 
   for (let image of imageManifest) {
-    let currentImageCount = parseInt(ReadOrCreateProperty_(scriptProperties, IMAGE_USAGE_PREFIX + image, 0))
-    scriptProperties.setProperty(IMAGE_USAGE_PREFIX + image, currentImageCount + 1)
+    let propertyName = IMAGE_USAGE_PREFIX + image.name;
+    let currentImageCount = parseInt(ReadOrCreateProperty_(propertyName, 0))
+    scriptProperties.setProperty(propertyName, currentImageCount + 1)
   }
 }
 
-function ReadOrCreateProperty_(properties, key, defaultValue) {
-  var value = properties.getProperty(key)
+function PrintAllProperties() {
+  var scriptProperties = PropertiesService.getScriptProperties()
+  var props = scriptProperties.getProperties()
+  for (var property in props) {
+    console.log('%s: %s', property, props[property]);
+  }
+}
+
+function ReadOrCreateProperty_(key, defaultValue) {
+  var scriptProperties = PropertiesService.getScriptProperties()
+  var value = scriptProperties.getProperty(key)
   if (value == null) {
     value = defaultValue.toString()
-    properties.setProperty(key, value)
+    scriptProperties.setProperty(key, value)
   }
   return value
 }
