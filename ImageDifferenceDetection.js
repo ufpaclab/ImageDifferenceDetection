@@ -4,7 +4,13 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
     function ChooseImageSet(session) {
         const IMAGES_PER_SUBJECT = 40
         session.getImageUsage(IMAGE_MANIFEST, (manifest) => {
-            manifest.sort()
+            manifest.sort((left, right) => {
+                if (left > right)
+                    return 1;
+                if (right > left)
+                    return -1;
+                return 0
+            })
             let filteredManifest = manifest.slice(0, IMAGES_PER_SUBJECT)
             RunExperiment(session, filteredManifest)
         })
