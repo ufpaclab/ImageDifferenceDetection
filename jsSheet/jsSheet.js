@@ -13,7 +13,7 @@ const jsSheet = {
             google.script.run.withFailureHandler(onFailure).withSuccessHandler(callback).GetImageUsage(imageList)
           },
           updateImageUsage: function(imageList) {
-            google.script.run.withFailureHandler(onFailure).updateImageUsage(imageList)
+            google.script.run.withFailureHandler(onFailure).UpdateImageUsage(imageList)
           }
         })
       }

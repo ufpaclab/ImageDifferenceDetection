@@ -48,23 +48,22 @@ function Insert(id, data) {
   lock.releaseLock()
 }
 
-const IMAGE_USAGE_PREFIX = "imageList_"
+const IMAGE_USAGE_PREFIX = "imageManifest_"
 
-function GetImageUsage(imageList) {
+function GetImageUsage(imageManifest) {
   var scriptProperties = PropertiesService.getScriptProperties()
   
-  let imageTable = {};
-  for (let image of imageList) {
-    imageTable[image] = ReadOrCreateProperty_(scriptProperties, IMAGE_USAGE_PREFIX + image, 0)
+  for (let image in imageManifest) {
+    imageManifest[image].usage = ReadOrCreateProperty_(scriptProperties, IMAGE_USAGE_PREFIX + image, 0)
   }
 
-  return imageTable;
+  return imageManifest;
 }
 
-function UpdateImageUsage(imageList) {
+function UpdateImageUsage(imageManifest) {
   var scriptProperties = PropertiesService.getScriptProperties()
 
-  for (let image of imageList) {
+  for (let image of imageManifest) {
     let currentImageCount = parseInt(ReadOrCreateProperty_(scriptProperties, IMAGE_USAGE_PREFIX + image, 0))
     scriptProperties.setProperty(IMAGE_USAGE_PREFIX + image, currentImageCount + 1)
   }

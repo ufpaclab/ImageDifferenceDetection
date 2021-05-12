@@ -4,7 +4,6 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
     function ChooseImageSet(session) {
         const IMAGES_PER_SUBJECT = 40
         session.getImageUsage(IMAGE_MANIFEST, (manifest) => {
-            console.log(manifest)
             manifest.sort((a, b) => a.usage > b.usage)
             let filteredManifest = manifest.slice(0, IMAGES_PER_SUBJECT)
             RunExperiment(session, filteredManifest)
@@ -14,6 +13,7 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
     function RunExperiment(session, manifest) {
         // Define Constants
         const CONTACT_EMAIL = 'fake@email.com'
+        console.log(manifest)
 
         // Define Experiment Trials
         let welcomeTrial = {
