@@ -133,7 +133,6 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
             ],
             timeline_variables: function() {
                 let variables = [];
-                console.log(manifest);
                 let images = jsPsych.randomization.sampleWithoutReplacement(manifest);
                 for (let i = 0; i < images.length; i++) {
                     variables.push({
