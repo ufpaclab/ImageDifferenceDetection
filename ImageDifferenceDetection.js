@@ -5,13 +5,7 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
     jsSheetHandle.CreateSession(ChooseImageSet);
 
     function ChooseImageSet(session) {
-        const waitText = document.createElement('h1');
-        waitText.id = 'loader-text';
-        waitText.innerHTML = 'Please wait while we set up the experiment...';
-        document.body.appendChild(waitText);
-        const waitLoader = document.createElement('div');
-        waitLoader.id = 'loader';
-        document.body.appendChild(waitLoader);
+        DisplayLoader('Please wait while we set up the experiment...');
 
         session.getImageUsage(IMAGE_MANIFEST, (totalManifest) => {
             manifest = Shuffle(totalManifest)
@@ -154,22 +148,26 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
         let finalTrial = {
             type: 'instructions',
             pages: [`Thanks for participating! Push the right arrow key to finish the experiment.`],
-            post_trial_gap: 5000
+            on_finish: function() {
+                DisplayLoader('Please wait while we clean up...');
+                jsPsych.pauseExperiment();
+                setTimeout(jsPsych.resumeExperiment, 5000);
+            }
         }
 
         // Configure and Start Experiment
         jsPsychHandle.init({
             timeline: [
                 welcomeTrial,
-                //consentFormTrial,
+                consentFormTrial,
                 experimentInstructionsTrial,
                 differenceDetection,
                 finalTrial
             ],
             on_trial_finish: session.insert,
             on_finish: function() { 
-                session.updateImageUsage(manifest)
-                document.write("<h1>Experiment Complete</h1>")
+                session.updateImageUsage(manifest);
+                window.top.location.href = 'https://www.prolific.co/';
             }
         })
     }
@@ -182,5 +180,15 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
             array[j] = temp;
         }
         return array.slice(0);
+    }
+
+    function DisplayLoader(text) {
+        const waitText = document.createElement('h1');
+        waitText.id = 'loader-text';
+        waitText.innerHTML = text;
+        document.body.appendChild(waitText);
+        const waitLoader = document.createElement('div');
+        waitLoader.id = 'loader';
+        document.body.appendChild(waitLoader);
     }
 }
