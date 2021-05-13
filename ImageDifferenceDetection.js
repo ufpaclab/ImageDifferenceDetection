@@ -84,7 +84,6 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
         }
 
         function createDifferenceDetectionStimulus(suffix = '') {    
-            DelayedReveal('viewAlt', 20000);        
             return () => `
             <div class="differenceDetectionElement differenceDetectionContainer">
                 <img class="differenceDetectionElement differenceDetectionImage" src="resources/${jsPsychHandle.timelineVariable('leftImage', true)}"/>
@@ -129,7 +128,8 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
         }
 
         let differenceDetection = {
-            button_label: 'Submit',
+            button_label: 'Submit',        
+            on_start: function() { DelayedReveal('viewAlt', 20000); },
             timeline: [
                 createContinuousSlider('How much does the meaning change from one picture to the other?', 'Insignificant Change', 'Very Significant Change'),
                 createStandardLikert('How likely is it for the <b>image on the right</b> to appear in the real world?', 'Very Unlikely', 'Very Likely', 7),
