@@ -1,3 +1,5 @@
+# generate manifest file by looking for jpeg files that end in the '_2.jpg' suffix
+
 import os
 import re
 

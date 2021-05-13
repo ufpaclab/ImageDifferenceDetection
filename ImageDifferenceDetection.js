@@ -83,12 +83,15 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
             ]
         }
 
-        function createDifferenceDetectionStimulus(suffix = '') {
+        function createDifferenceDetectionStimulus(suffix = '') {    
+            DelayedReveal('viewAlt', 20000);        
             return () => `
             <div class="differenceDetectionElement differenceDetectionContainer">
                 <img class="differenceDetectionElement differenceDetectionImage" src="resources/${jsPsychHandle.timelineVariable('leftImage', true)}"/>
-                <img class="differenceDetectionElement differenceDetectionImage" src="resources/${jsPsychHandle.timelineVariable('rightImage', true)}"/>
+                <img style="display:inline-block;" id="differenceDetectionRightMain" class="differenceDetectionElement differenceDetectionImage" src="resources/${jsPsychHandle.timelineVariable('rightImage', true)}"/>
+                <img style="display:none;" id="differenceDetectionRightAlt" class="differenceDetectionElement differenceDetectionImage" src="resources/${jsPsychHandle.timelineVariable('rightAltImage', true)}"/>
             </div>
+            <button style="display:none;" onclick="SwapRightImage();" id="viewAlt">Reveal Change</button>
             <div>${suffix}</div>`
         };
 
@@ -140,6 +143,7 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                     variables.push({
                         leftImage: `${images[i].name}.${images[i].extension}`,
                         rightImage: `${images[i].name}_2.${images[i].extension}`,
+                        rightAltImage: `${images[i].name}_3.${images[i].extension}`
                     })
                 }
                 return variables;
@@ -189,4 +193,29 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
         waitLoader.id = 'loader';
         document.body.appendChild(waitLoader);
     }
+}
+
+const SwapRightImage = function() {
+    let showAltImage = true;
+
+    return function() {
+        let hiddenImage = document.getElementById('differenceDetectionRightAlt');
+        let shownImage = document.getElementById('differenceDetectionRightMain');
+
+        if (showAltImage) {
+            let temp = hiddenImage;
+            hiddenImage = shownImage;
+            shownImage = temp;
+        }
+
+        hiddenImage.style.display = 'none';
+        shownImage.style.display = 'inline-block';
+        showAltImage = !showAltImage;
+    }
+}()
+
+async function DelayedReveal(id, delay) {
+    setTimeout(() => {
+        document.getElementById(id).style.display = '';
+    }, delay)
 }
