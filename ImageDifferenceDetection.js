@@ -29,6 +29,10 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                         return 0;
                     })
                     .slice(0, IMAGES_PER_SUBJECT);
+                    
+                    console.log(IMAGE_MANIFEST);
+                    console.log(totalManifest);
+                    console.log(manifest);
                 })
             }
         }
@@ -135,8 +139,8 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                 createStandardLikert('How hard is it to identify the change in the image?', 'Very Easy', 'Very Hard', 7)
             ],
             timeline_variables: function() {
-                
-                let variables = []
+                let variables = [];
+                console.log(manifest);
                 let images = jsPsych.randomization.sampleWithoutReplacement(manifest);
                 for (let i = 0; i < images.length; i++) {
                     variables.push({
