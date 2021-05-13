@@ -149,7 +149,8 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
 
         let finalTrial = {
             type: 'instructions',
-            pages: [`Thanks for participating! Push the right arrow key to finish the experiment.`]
+            pages: [`Thanks for participating! Push the right arrow key to finish the experiment.`],
+            post_trial_gap: 5000
         }
 
         // Configure and Start Experiment
