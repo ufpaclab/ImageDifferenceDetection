@@ -155,7 +155,6 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
         jsPsychHandle.init({
             timeline: [
                 welcomeTrial,
-                chooseImageSet,
                 consentFormTrial,
                 experimentInstructionsTrial,
                 differenceDetection,
