@@ -58,7 +58,7 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
             type: 'survey-text',
             questions: [{
                 name: 'age',
-                prompt: 'What is your age?',
+                prompt: 'What is your age (e.g. 20, 45, 63)?',
                 required: true,
                 columns: 3
             }]
