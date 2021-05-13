@@ -5,9 +5,10 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
     jsSheetHandle.CreateSession(ChooseImageSet);
 
     function ChooseImageSet(session) {
-        document.write(
-            `<h1>Please Wait...</h1>`
-        );
+        const template = document.createElement('h1');
+        template.innerHTML = 'Please Wait...';
+        document.body.appendChild(template);
+
         session.getImageUsage(IMAGE_MANIFEST, (totalManifest) => {
             manifest = Shuffle(totalManifest)
             .sort((left, right) => {
@@ -18,8 +19,8 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                 return 0;
             })
             .slice(0, IMAGES_PER_SUBJECT);
+            RunExperiment(session);
         })
-        RunExperiment(session);
     }
 
     function RunExperiment(session) {
