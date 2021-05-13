@@ -3,6 +3,7 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
 
     function RunExperiment(session) {
         // Define Module Variables
+        const IMAGES_PER_SUBJECT = 40;
         let manifest = [];
 
         // Define Experiment Trials
