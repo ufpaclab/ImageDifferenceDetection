@@ -1,27 +1,9 @@
 function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
-    jsSheetHandle.CreateSession(ChooseImageSet)
+    jsSheetHandle.CreateSession(RunExperiment);
 
-    function ChooseImageSet(session) {
-        const IMAGES_PER_SUBJECT = 40
-        session.getImageUsage(IMAGE_MANIFEST, (manifest) => {
-            let filteredManifest = 
-            Shuffle(manifest)
-            .sort((left, right) => {
-                if (left.usage > right.usage)
-                    return 1;
-                if (right.usage > left.usage)
-                    return -1;
-                return 0;
-            })
-            .slice(0, IMAGES_PER_SUBJECT);
-            RunExperiment(session, filteredManifest)
-        })
-    }
-
-    function RunExperiment(session, manifest) {
-        // Define Constants
-        const CONTACT_EMAIL = 'fake@email.com'
-        console.log(manifest)
+    function RunExperiment(session) {
+        // Define Module Variables
+        let manifest = [];
 
         // Define Experiment Trials
         let welcomeTrial = {
@@ -30,6 +12,24 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                 <p>Welcome to the experiment.</p>
                 <p>Press any key to begin.</p>
             `
+        }
+
+        // Definite race condition, but its good enough
+        let chooseImageSet = {
+            type: 'call-function',
+            func: () => {
+                session.getImageUsage(IMAGE_MANIFEST, (totalManifest) => {
+                    manifest = Shuffle(totalManifest)
+                    .sort((left, right) => {
+                        if (left.usage > right.usage)
+                            return 1;
+                        if (right.usage > left.usage)
+                            return -1;
+                        return 0;
+                    })
+                    .slice(0, IMAGES_PER_SUBJECT);
+                })
+            }
         }
 
         let consentFormTrial = {
@@ -149,13 +149,14 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
 
         let finalTrial = {
             type: 'instructions',
-            pages: [`Thanks for participating! Please email us at ${CONTACT_EMAIL}. Push the right arrow key to finish the experiment.`]
+            pages: [`Thanks for participating! Push the right arrow key to finish the experiment.`]
         }
 
         // Configure and Start Experiment
         jsPsychHandle.init({
             timeline: [
                 welcomeTrial,
+                chooseImageSet,
                 consentFormTrial,
                 experimentInstructionsTrial,
                 differenceDetection,
