@@ -42,13 +42,7 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                 {
                     name: 'sex',
                     prompt: 'What is your sex assigned at birth?',
-                    options: ['Male', 'Female', 'Intersex'],
-                    required: true
-                },
-                {
-                    name: 'gender',
-                    prompt: 'What is your gender?',
-                    options: ['Cis Woman', 'Cis Man', 'Trans Woman', 'Trans Man', 'Non-Binary'],
+                    options: ['Male', 'Female', 'Other'],
                     required: true
                 }
             ]
