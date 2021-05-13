@@ -1,40 +1,34 @@
 function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
-    jsSheetHandle.CreateSession(RunExperiment);
+    const IMAGES_PER_SUBJECT = 40;
+    let manifest = [];
+    
+    jsSheetHandle.CreateSession(ChooseImageSet);
+
+    function ChooseImageSet(session) {
+        document.write(
+            `<h1>Please Wait...</h1>`
+        );
+        session.getImageUsage(IMAGE_MANIFEST, (totalManifest) => {
+            manifest = Shuffle(totalManifest)
+            .sort((left, right) => {
+                if (left.usage > right.usage)
+                    return 1;
+                if (right.usage > left.usage)
+                    return -1;
+                return 0;
+            })
+            .slice(0, IMAGES_PER_SUBJECT);
+        })
+        RunExperiment(session);
+    }
 
     function RunExperiment(session) {
-        // Define Module Variables
-        const IMAGES_PER_SUBJECT = 40;
-        let manifest = [];
-
-        // Define Experiment Trials
         let welcomeTrial = {
             type: 'html-keyboard-response',
             stimulus:`
                 <p>Welcome to the experiment.</p>
                 <p>Press any key to begin.</p>
             `
-        }
-
-        // Definite race condition, but its good enough
-        let chooseImageSet = {
-            type: 'call-function',
-            func: () => {
-                session.getImageUsage(IMAGE_MANIFEST, (totalManifest) => {
-                    manifest = Shuffle(totalManifest)
-                    .sort((left, right) => {
-                        if (left.usage > right.usage)
-                            return 1;
-                        if (right.usage > left.usage)
-                            return -1;
-                        return 0;
-                    })
-                    .slice(0, IMAGES_PER_SUBJECT);
-
-                    console.log(IMAGE_MANIFEST);
-                    console.log(totalManifest);
-                    console.log(manifest);
-                })
-            }
         }
 
         let consentFormTrial = {
@@ -149,7 +143,7 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                     })
                 }
                 return variables;
-            }
+            }()
         }
 
         let finalTrial = {
