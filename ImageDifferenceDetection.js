@@ -36,6 +36,34 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
             cont_btn: 'consent-button'
         }
 
+        let getSex = {
+            type: 'survey-multi-choice',
+            questions: [
+                {
+                    name: 'sex',
+                    prompt: 'What is your sex assigned at birth?',
+                    options: ['Male', 'Female', 'Intersex'],
+                    required: true
+                },
+                {
+                    name: 'gender',
+                    prompt: 'What is your gender?',
+                    options: ['Cis Woman', 'Cis Man', 'Trans Woman', 'Trans Man', 'Non-Binary'],
+                    required: true
+                }
+            ]
+        }
+
+        let getAge = {
+            type: 'survey-text',
+            questions: [{
+                name: 'age',
+                prompt: 'What is your age?',
+                required: true,
+                columns: 3
+            }]
+        }
+
         let experimentInstructionsTrial = {
             type: 'instructions',
             show_clickable_nav: true,
@@ -160,6 +188,8 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
             timeline: [
                 welcomeTrial,
                 consentFormTrial,
+                getSex,
+                getAge,
                 experimentInstructionsTrial,
                 differenceDetection,
                 finalTrial
