@@ -409,6 +409,10 @@ window.jsPsych = (function() {
         return;
       }
 
+      if (typeof timeline_parameters.timeline_variables === 'function'){
+        timeline_parameters.timeline_variables = timeline_parameters.timeline_variables();
+      }
+
       var order = [];
       for(var i=0; i<timeline_parameters.timeline_variables.length; i++){
         order.push(i);

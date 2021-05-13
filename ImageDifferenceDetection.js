@@ -29,7 +29,7 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                         return 0;
                     })
                     .slice(0, IMAGES_PER_SUBJECT);
-                    
+
                     console.log(IMAGE_MANIFEST);
                     console.log(totalManifest);
                     console.log(manifest);
@@ -149,7 +149,7 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                     })
                 }
                 return variables;
-            }()
+            }
         }
 
         let finalTrial = {
