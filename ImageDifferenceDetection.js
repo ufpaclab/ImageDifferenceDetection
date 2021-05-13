@@ -216,6 +216,7 @@ const SwapRightImage = function() {
 
 async function DelayedReveal(id, delay) {
     setTimeout(() => {
+        console.log("##Test##")
         document.getElementById(id).style.display = '';
     }, delay)
 }
