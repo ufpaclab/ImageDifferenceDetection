@@ -5,13 +5,13 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
         const IMAGES_PER_SUBJECT = 40
         session.getImageUsage(IMAGE_MANIFEST, (manifest) => {
             let filteredManifest = 
-            manifest
+            Shuffle(manifest)
             .sort((left, right) => {
                 if (left.usage > right.usage)
                     return 1;
                 if (right.usage > left.usage)
                     return -1;
-                return 0
+                return 0;
             })
             .slice(0, IMAGES_PER_SUBJECT);
             RunExperiment(session, filteredManifest)
@@ -167,5 +167,15 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                 document.write("<h1>Experiment Complete</h1>")
             }
         })
+    }
+
+    function Shuffle(array) {
+        for (var i = array.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+        return array.slice(0);
     }
 }
