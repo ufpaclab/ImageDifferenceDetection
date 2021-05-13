@@ -107,7 +107,8 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                                 labels.push('');
                             labels.push(rightlabel);
                             return labels;
-                        }()
+                        }(),
+                        required: true
                     }
                 ]
             }
@@ -120,6 +121,7 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                 slider_width: 500,
                 start: () => Math.random() * 100,
                 labels: [leftlabel, rightlabel],
+                require_movement: true
             }
         }
 
@@ -162,7 +164,7 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
             on_finish: function() {
                 DisplayLoader('Please wait while we clean up...');
                 session.updateImageUsage(manifest);
-                setTimeout(() => {}, 5000);                
+                setTimeout(() => {}, 5000);
                 window.top.location.href = 'https://www.prolific.co/';
             }
         })
