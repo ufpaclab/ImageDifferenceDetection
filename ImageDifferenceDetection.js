@@ -147,11 +147,6 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
         let finalTrial = {
             type: 'instructions',
             pages: [`Thanks for participating! Push the right arrow key to finish the experiment.`],
-            on_finish: function() {
-                DisplayLoader('Please wait while we clean up...');
-                jsPsych.pauseExperiment();
-                setTimeout(jsPsych.resumeExperiment, 5000);
-            }
         }
 
         // Configure and Start Experiment
@@ -164,8 +159,10 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                 finalTrial
             ],
             on_trial_finish: session.insert,
-            on_finish: function() { 
+            on_finish: function() {
+                DisplayLoader('Please wait while we clean up...');
                 session.updateImageUsage(manifest);
+                setTimeout(() => {}, 5000);                
                 window.top.location.href = 'https://www.prolific.co/';
             }
         })
