@@ -5,9 +5,13 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
     jsSheetHandle.CreateSession(ChooseImageSet);
 
     function ChooseImageSet(session) {
-        const template = document.createElement('h1');
-        template.innerHTML = 'Please Wait...';
-        document.body.appendChild(template);
+        const waitText = document.createElement('h1');
+        waitText.id = 'loader-text';
+        waitText.innerHTML = 'Please wait while we set up the experiment...';
+        document.body.appendChild(waitText);
+        const waitLoader = document.createElement('div');
+        waitLoader.id = 'loader';
+        document.body.appendChild(waitLoader);
 
         session.getImageUsage(IMAGE_MANIFEST, (totalManifest) => {
             manifest = Shuffle(totalManifest)
@@ -157,7 +161,7 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
         jsPsychHandle.init({
             timeline: [
                 welcomeTrial,
-                consentFormTrial,
+                //consentFormTrial,
                 experimentInstructionsTrial,
                 differenceDetection,
                 finalTrial
