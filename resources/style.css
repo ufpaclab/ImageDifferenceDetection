@@ -18,11 +18,18 @@
   font-style: italic;
 }
 
-#consent-logo {
-  display: block;
+.logo {
+  /*display: block;
   margin-left: auto;
-  margin-right: auto;
-  width: 40%;
+  margin-right: auto;*/
+}
+
+#uf-logo {
+  width: 30%;
+}
+
+#stjohn-logo {
+  width: 10%;
 }
 
 .consent-header {
