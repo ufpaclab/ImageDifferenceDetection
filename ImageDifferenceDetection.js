@@ -101,6 +101,9 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                 '<p>Finally, we will also ask you about how hard it is to identify the change between the images in a given pair.</p>' +
                 '<p>We will not give you a reference for this question. Simply report how hard it was for <b>you</b> to identify the difference.</p>'
                 ,
+                '<p>If you have difficulty spotting the change, you can wait 20 seconds and a button will appear that will allow you to reveal the change.</p>' +
+                '<p>The change will be highlighted with a light blue box</p>'
+                ,
                 '<p>When you are ready, continue to the experiment. Please do your best to provide quick and accurate ratings. Thank you in advance for your hard work!</p>'
             ]
         }
@@ -116,13 +119,14 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
             <div>${suffix}</div>`
         };
 
-        function createStandardLikert(question, leftlabel, rightlabel, scale) {
+        function createStandardLikert(name, question, leftlabel, rightlabel, scale) {
             return {
                 type: 'survey-likert',
                 scale_width: 500,
                 preamble: createDifferenceDetectionStimulus(),
                 questions: [
                     {
+                        name: name,
                         prompt: question,
                         labels: function() {
                             let labels = [];
@@ -151,12 +155,14 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
 
         let differenceDetection = {
             button_label: 'Submit',        
-            on_start: function() { DelayedReveal('viewAlt', 20000); },
+            on_start: function() {
+                this.on_finish = DelayedReveal('viewAlt', 20000);
+            },
             timeline: [
                 createContinuousSlider('How much does the meaning change from one picture to the other?', 'Insignificant Change', 'Very Significant Change'),
-                createStandardLikert('How likely is it for the <b>image on the right</b> to appear in the real world?', 'Very Unlikely', 'Very Likely', 7),
-                createStandardLikert('How visually complicated are the images?', 'Very Simple', 'Very Complicated', 7),
-                createStandardLikert('How hard is it to identify the change in the image?', 'Very Easy', 'Very Hard', 7)
+                createStandardLikert('Likely', 'How likely is it for the <b>image on the right</b> to appear in the real world?', 'Very Unlikely', 'Very Likely', 7),
+                createStandardLikert('Complicated', 'How visually complicated are the images?', 'Very Simple', 'Very Complicated', 7),
+                createStandardLikert('Hard', 'How hard is it to identify the change in the image?', 'Very Easy', 'Very Hard', 7)
             ],
             timeline_variables: function() {
                 let variables = [];
@@ -238,8 +244,18 @@ const SwapRightImage = function() {
     }
 }()
 
-async function DelayedReveal(id, delay) {
-    setTimeout(() => {
-        document.getElementById(id).style.display = '';
-    }, delay)
+function DelayedReveal(id, delay) {
+    let trialIsFinished = false;
+
+    async function reveal() {
+        setTimeout(() => {
+            if (!trialIsFinished)
+                document.getElementById(id).style.display = '';
+        }, delay)
+    }
+    reveal();
+
+    return function() {
+        trialIsFinished = true;
+    }
 }
