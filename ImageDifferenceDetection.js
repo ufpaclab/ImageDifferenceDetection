@@ -115,7 +115,7 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                 <img style="display:inline-block;" id="differenceDetectionRightMain" class="differenceDetectionElement differenceDetectionImage" src="resources/${jsPsychHandle.timelineVariable('rightImage', true)}"/>
                 <img style="display:none;" id="differenceDetectionRightAlt" class="differenceDetectionElement differenceDetectionImage" src="resources/${jsPsychHandle.timelineVariable('rightAltImage', true)}"/>
             </div>
-            <button style="display:none;" onclick="SwapRightImage();" id="viewAlt">Reveal Change</button>
+            <button style="display:none;" id="viewAlt">Reveal Change</button>
             <div>${suffix}</div>`
         };
 
@@ -223,39 +223,40 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
         waitLoader.id = 'loader';
         document.body.appendChild(waitLoader);
     }
-}
 
-const SwapRightImage = function() {
-    let showAltImage = true;
-
-    return function() {
-        let hiddenImage = document.getElementById('differenceDetectionRightAlt');
-        let shownImage = document.getElementById('differenceDetectionRightMain');
-
-        if (showAltImage) {
-            let temp = hiddenImage;
-            hiddenImage = shownImage;
-            shownImage = temp;
+    function DelayedReveal(id, delay) {
+        let trialIsFinished = false;
+    
+        async function reveal() {
+            setTimeout(() => {
+                if (!trialIsFinished)
+                    document.getElementById(id).style.display = '';
+                    document.getElementById(id).onclick = SwapRightImage;
+            }, delay)
         }
-
-        hiddenImage.style.display = 'none';
-        shownImage.style.display = 'inline-block';
-        showAltImage = !showAltImage;
+        reveal();
+    
+        return function() {
+            trialIsFinished = true;
+        }
     }
-}()
 
-function DelayedReveal(id, delay) {
-    let trialIsFinished = false;
-
-    async function reveal() {
-        setTimeout(() => {
-            if (!trialIsFinished)
-                document.getElementById(id).style.display = '';
-        }, delay)
-    }
-    reveal();
-
-    return function() {
-        trialIsFinished = true;
-    }
+    const SwapRightImage = function() {
+        let showAltImage = true;
+    
+        return function() {
+            let hiddenImage = document.getElementById('differenceDetectionRightAlt');
+            let shownImage = document.getElementById('differenceDetectionRightMain');
+    
+            if (showAltImage) {
+                let temp = hiddenImage;
+                hiddenImage = shownImage;
+                shownImage = temp;
+            }
+    
+            hiddenImage.style.display = 'none';
+            shownImage.style.display = 'inline-block';
+            showAltImage = !showAltImage;
+        }
+    }()
 }
