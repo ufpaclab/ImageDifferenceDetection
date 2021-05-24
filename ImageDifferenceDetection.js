@@ -156,6 +156,9 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
         let differenceDetection = {
             button_label: 'Submit',        
             on_start: function() {
+                // Allow DOM time to load
+                setTimeout(() => {}, 500);
+
                 this.on_finish = DelayedReveal('viewAlt', 20000);
             },
             timeline: [
