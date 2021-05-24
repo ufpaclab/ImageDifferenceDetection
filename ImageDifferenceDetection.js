@@ -240,6 +240,7 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
         reveal();
     
         return function() {
+            console.log('trialIsFinished: ' + trialIsFinished);
             trialIsFinished = true;
         }
     }
@@ -248,6 +249,7 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
         let showAltImage = true;
     
         return function() {
+            console.log('showAltImage: ' + showAltImage);
             let hiddenImage = document.getElementById('differenceDetectionRightAlt');
             let shownImage = document.getElementById('differenceDetectionRightMain');
     
