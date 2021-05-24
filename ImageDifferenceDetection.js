@@ -156,9 +156,6 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
         let differenceDetection = {
             button_label: 'Submit',        
             on_start: function() {
-                // Allow DOM time to load
-                setTimeout(() => {}, 500);
-
                 this.on_finish = DelayedReveal('viewAlt', 20000);
             },
             timeline: [
@@ -229,7 +226,30 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
 
     function DelayedReveal(id, delay) {
         let trialIsFinished = false;
-    
+
+        const [SwapRightImage, ResetSwapRightImage] = function() {
+            let showAltImage = true;
+            return [
+                function() {
+                    let hiddenImage = document.getElementById('differenceDetectionRightAlt');
+                    let shownImage = document.getElementById('differenceDetectionRightMain');
+            
+                    if (showAltImage) {
+                        let temp = hiddenImage;
+                        hiddenImage = shownImage;
+                        shownImage = temp;
+                    }
+            
+                    hiddenImage.style.display = 'none';
+                    shownImage.style.display = 'inline-block';
+                    showAltImage = !showAltImage;
+                },
+                function() {
+                    showAltImage = true;
+                }
+            ];
+        }()
+
         async function reveal() {
             setTimeout(() => {
                 if (!trialIsFinished)
@@ -238,30 +258,10 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
             }, delay)
         }
         reveal();
-    
+
         return function() {
-            console.log('trialIsFinished: ' + trialIsFinished);
             trialIsFinished = true;
+            ResetSwapRightImage();
         }
     }
-
-    const SwapRightImage = function() {
-        let showAltImage = true;
-    
-        return function() {
-            console.log('showAltImage: ' + showAltImage);
-            let hiddenImage = document.getElementById('differenceDetectionRightAlt');
-            let shownImage = document.getElementById('differenceDetectionRightMain');
-    
-            if (showAltImage) {
-                let temp = hiddenImage;
-                hiddenImage = shownImage;
-                shownImage = temp;
-            }
-    
-            hiddenImage.style.display = 'none';
-            shownImage.style.display = 'inline-block';
-            showAltImage = !showAltImage;
-        }
-    }()
 }
