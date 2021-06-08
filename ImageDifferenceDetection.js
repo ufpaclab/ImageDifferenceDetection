@@ -1,8 +1,9 @@
-function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
+function ImageDifferenceDetection(jsPsychHandle, urlParameters) {
     const IMAGES_PER_SUBJECT = 40;
     let manifest = [];
-    
-    jsSheetHandle.CreateSession(ChooseImageSet);
+
+    let sessionBuilder = new SessionBuilder();
+    sessionBuilder.createSession(ChooseImageSet)
 
     function ChooseImageSet(session) {
         DisplayLoader('Please wait while we set up the experiment...');
@@ -194,7 +195,9 @@ function ImageDifferenceDetection(jsSheetHandle, jsPsychHandle, survey_code) {
                 differenceDetection,
                 finalTrial
             ],
-            on_trial_finish: session.insert,
+            on_trial_finish: function(data) {
+                session.insert(data);
+            },
             on_finish: function() {
                 DisplayLoader('Please wait while we clean up...');
                 session.updateImageUsage(manifest);
