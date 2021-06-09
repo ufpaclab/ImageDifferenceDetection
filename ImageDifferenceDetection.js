@@ -1,4 +1,5 @@
 function ImageDifferenceDetection(jsPsychHandle, urlParameters) {
+    jsPsychHandle.data.addProperties(urlParameters);
     const IMAGES_PER_SUBJECT = 40;
     let manifest = [];
 
