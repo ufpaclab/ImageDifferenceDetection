@@ -165,6 +165,11 @@ function ImageDifferenceDetection(jsPsychHandle, urlParameters) {
                 createStandardLikert('Complicated', 'How visually complicated are the images?', 'Very Simple', 'Very Complicated', 7),
                 createStandardLikert('Hard', 'How hard is it to identify the change in the image?', 'Very Easy', 'Very Hard', 7)
             ],
+            data: function() {
+                return {
+                    image: jsPsychHandle.timelineVariable('leftImage', true)
+                }
+            },
             timeline_variables: function() {
                 let variables = [];
                 let images = jsPsych.randomization.sampleWithoutReplacement(manifest);
