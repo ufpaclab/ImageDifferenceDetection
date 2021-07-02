@@ -3,30 +3,32 @@ function ImageDifferenceDetection(jsPsychHandle, urlParameters) {
     const IMAGES_PER_SUBJECT = 40;
     let manifest = [];
 
+    // START MODIFY NEEDED
     let sessionBuilder = new SessionBuilder();
-    sessionBuilder.createSession(ChooseImageSet)
+    sessionBuilder.createSession(RunExperiment)
 
     function ChooseImageSet(session) {
         DisplayLoader('Please wait while we set up the experiment...');
 
         session.getImageUsage(IMAGE_MANIFEST, (totalManifest) => {
             manifest = Shuffle(totalManifest)
-            .sort((left, right) => {
-                if (left.usage > right.usage)
-                    return 1;
-                if (right.usage > left.usage)
-                    return -1;
-                return 0;
-            })
-            .slice(0, IMAGES_PER_SUBJECT);
+                .sort((left, right) => {
+                    if (left.usage > right.usage)
+                        return 1;
+                    if (right.usage > left.usage)
+                        return -1;
+                    return 0;
+                })
+                .slice(0, IMAGES_PER_SUBJECT);
             RunExperiment(session);
         })
     }
+    // END
 
     function RunExperiment(session) {
         let welcomeTrial = {
             type: 'html-keyboard-response',
-            stimulus:`
+            stimulus: `
                 <p>Welcome to the experiment.</p>
                 <p>Press any key to begin.</p>
             `
@@ -64,8 +66,8 @@ function ImageDifferenceDetection(jsPsychHandle, urlParameters) {
             type: 'instructions',
             show_clickable_nav: true,
             pages: [
-                '<h1> Welcome to the Experiment </h1>' + 
-                '<p>Welcome to the experiment! In this task, you will be asked to provide ratings' + 
+                '<h1> Welcome to the Experiment </h1>' +
+                '<p>Welcome to the experiment! In this task, you will be asked to provide ratings' +
                 ' about pairs of images. Each pair of images contains a specific change, and we will' +
                 ' ask you questions about it.</p>'
                 ,
@@ -110,7 +112,7 @@ function ImageDifferenceDetection(jsPsychHandle, urlParameters) {
             ]
         }
 
-        function createDifferenceDetectionStimulus(suffix = '') {    
+        function createDifferenceDetectionStimulus(suffix = '') {
             return () => `
             <div class="differenceDetectionElement differenceDetectionContainer">
                 <img class="differenceDetectionElement differenceDetectionImage" src="resources/${jsPsychHandle.timelineVariable('leftImage', true)}"/>
@@ -130,7 +132,7 @@ function ImageDifferenceDetection(jsPsychHandle, urlParameters) {
                     {
                         name: name,
                         prompt: question,
-                        labels: function() {
+                        labels: function () {
                             let labels = [];
                             labels.push(leftlabel);
                             for (let i = 0; i < scale - 2; i++)
@@ -156,8 +158,8 @@ function ImageDifferenceDetection(jsPsychHandle, urlParameters) {
         }
 
         let differenceDetection = {
-            button_label: 'Submit',        
-            on_start: function() {
+            button_label: 'Submit',
+            on_start: function () {
                 this.on_finish = DelayedReveal('viewAlt', 20000);
             },
             timeline: [
@@ -166,12 +168,12 @@ function ImageDifferenceDetection(jsPsychHandle, urlParameters) {
                 createStandardLikert('Complicated', 'How visually complicated are the images?', 'Very Simple', 'Very Complicated', 7),
                 createStandardLikert('Hard', 'How hard is it to identify the change in the image?', 'Very Easy', 'Very Hard', 7)
             ],
-            data: function() {
+            data: function () {
                 return {
                     image: jsPsychHandle.timelineVariable('leftImage', true)
                 }
             },
-            timeline_variables: function() {
+            timeline_variables: function () {
                 let variables = [];
                 let images = jsPsych.randomization.sampleWithoutReplacement(manifest);
                 for (let i = 0; i < images.length; i++) {
@@ -201,15 +203,17 @@ function ImageDifferenceDetection(jsPsychHandle, urlParameters) {
                 differenceDetection,
                 finalTrial
             ],
-            on_trial_finish: function(data) {
+            // START MODIFY NEEDED
+            on_trial_finish: function (data) {
                 session.insert(data);
             },
-            on_finish: function() {
+            on_finish: function () {
                 DisplayLoader('Please wait while we clean up...');
                 session.updateImageUsage(manifest);
-                setTimeout(() => {}, 5000);
+                setTimeout(() => { }, 5000);
                 window.top.location.href = 'https://www.prolific.co/';
             }
+            // END
         })
     }
 
@@ -236,24 +240,24 @@ function ImageDifferenceDetection(jsPsychHandle, urlParameters) {
     function DelayedReveal(id, delay) {
         let trialIsFinished = false;
 
-        const [SwapRightImage, ResetSwapRightImage] = function() {
+        const [SwapRightImage, ResetSwapRightImage] = function () {
             let showAltImage = true;
             return [
-                function() {
+                function () {
                     let hiddenImage = document.getElementById('differenceDetectionRightAlt');
                     let shownImage = document.getElementById('differenceDetectionRightMain');
-            
+
                     if (showAltImage) {
                         let temp = hiddenImage;
                         hiddenImage = shownImage;
                         shownImage = temp;
                     }
-            
+
                     hiddenImage.style.display = 'none';
                     shownImage.style.display = 'inline-block';
                     showAltImage = !showAltImage;
                 },
-                function() {
+                function () {
                     showAltImage = true;
                 }
             ];
@@ -263,12 +267,12 @@ function ImageDifferenceDetection(jsPsychHandle, urlParameters) {
             setTimeout(() => {
                 if (!trialIsFinished)
                     document.getElementById(id).style.display = '';
-                    document.getElementById(id).onclick = SwapRightImage;
+                document.getElementById(id).onclick = SwapRightImage;
             }, delay)
         }
         reveal();
 
-        return function() {
+        return function () {
             trialIsFinished = true;
             ResetSwapRightImage();
         }

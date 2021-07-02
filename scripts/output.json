@@ -1,0 +1,410 @@
+{
+  "52": {
+    "sex": "Male",
+    "age": "24",
+    "subject_id": 52,
+    "PROLIFIC_PID": "1",
+    "STUDY_ID": "2",
+    "SESSION_ID": "3",
+    "images": {
+      "boat overhead.jpg": {
+        "Realistic": {
+          "value": 91,
+          "rt": 17198.9
+        },
+        "Likely": {
+          "value": 1,
+          "rt": 2428.2
+        },
+        "Complicated": {
+          "value": 5,
+          "rt": 1328.4
+        },
+        "Hard": {
+          "value": 3,
+          "rt": 948.4
+        }
+      },
+      "fruit market stand.jpg": {
+        "Realistic": {
+          "value": 8,
+          "rt": 2047.1
+        },
+        "Likely": {
+          "value": 2,
+          "rt": 1318.9
+        },
+        "Complicated": {
+          "value": 3,
+          "rt": 991.0
+        },
+        "Hard": {
+          "value": 0,
+          "rt": 1940.7
+        }
+      },
+      "abbey.jpg": {
+        "Realistic": {
+          "value": 100,
+          "rt": 46984.2
+        },
+        "Likely": {
+          "value": 6,
+          "rt": 1391.9
+        },
+        "Complicated": {
+          "value": 5,
+          "rt": 1251.3
+        },
+        "Hard": {
+          "value": 4,
+          "rt": 807.4
+        }
+      },
+      "trail.jpg": {
+        "Realistic": {
+          "value": 100,
+          "rt": 1972.8
+        },
+        "Likely": {
+          "value": 4,
+          "rt": 1108.1
+        },
+        "Complicated": {
+          "value": 2,
+          "rt": 2345.4
+        },
+        "Hard": {
+          "value": 0,
+          "rt": 1351.4
+        }
+      },
+      "runway.jpg": {
+        "Realistic": {
+          "value": 92,
+          "rt": 1677.6
+        },
+        "Likely": {
+          "value": 6,
+          "rt": 1635.1
+        },
+        "Complicated": {
+          "value": 0,
+          "rt": 1915.2
+        },
+        "Hard": {
+          "value": 3,
+          "rt": 2437.1
+        }
+      },
+      "two people standing.jpg": {
+        "Realistic": {
+          "value": 100,
+          "rt": 1807.1
+        },
+        "Likely": {
+          "value": 1,
+          "rt": 1025.8
+        },
+        "Complicated": {
+          "value": 5,
+          "rt": 1462.8
+        },
+        "Hard": {
+          "value": 4,
+          "rt": 891.4
+        }
+      },
+      "hot air baloons.jpg": {
+        "Realistic": {
+          "value": 62,
+          "rt": 1232.9
+        },
+        "Likely": {
+          "value": 0,
+          "rt": 1930.1
+        },
+        "Complicated": {
+          "value": 6,
+          "rt": 912.6
+        },
+        "Hard": {
+          "value": 3,
+          "rt": 1066.6
+        }
+      }
+    }
+  },
+  "51": {
+    "sex": "Female",
+    "age": "24",
+    "subject_id": 51,
+    "PROLIFIC_PID": "1",
+    "STUDY_ID": "2",
+    "SESSION_ID": "3",
+    "images": {
+      "boat overhead.jpg": {
+        "Realistic": {
+          "value": 91,
+          "rt": 17198.9
+        },
+        "Likely": {
+          "value": 1,
+          "rt": 2428.2
+        },
+        "Complicated": {
+          "value": 5,
+          "rt": 1328.4
+        },
+        "Hard": {
+          "value": 3,
+          "rt": 948.4
+        }
+      },
+      "fruit market stand.jpg": {
+        "Realistic": {
+          "value": 8,
+          "rt": 2047.1
+        },
+        "Likely": {
+          "value": 2,
+          "rt": 1318.9
+        },
+        "Complicated": {
+          "value": 3,
+          "rt": 991.0
+        },
+        "Hard": {
+          "value": 0,
+          "rt": 1940.7
+        }
+      },
+      "abbey.jpg": {
+        "Realistic": {
+          "value": 100,
+          "rt": 46984.2
+        },
+        "Likely": {
+          "value": 6,
+          "rt": 1391.9
+        },
+        "Complicated": {
+          "value": 5,
+          "rt": 1251.3
+        },
+        "Hard": {
+          "value": 4,
+          "rt": 807.4
+        }
+      },
+      "trail.jpg": {
+        "Realistic": {
+          "value": 100,
+          "rt": 1972.8
+        },
+        "Likely": {
+          "value": 4,
+          "rt": 1108.1
+        },
+        "Complicated": {
+          "value": 2,
+          "rt": 2345.4
+        },
+        "Hard": {
+          "value": 0,
+          "rt": 1351.4
+        }
+      },
+      "runway.jpg": {
+        "Realistic": {
+          "value": 92,
+          "rt": 1677.6
+        },
+        "Likely": {
+          "value": 6,
+          "rt": 1635.1
+        },
+        "Complicated": {
+          "value": 0,
+          "rt": 1915.2
+        },
+        "Hard": {
+          "value": 3,
+          "rt": 2437.1
+        }
+      },
+      "two people standing.jpg": {
+        "Realistic": {
+          "value": 100,
+          "rt": 1807.1
+        },
+        "Likely": {
+          "value": 1,
+          "rt": 1025.8
+        },
+        "Complicated": {
+          "value": 5,
+          "rt": 1462.8
+        },
+        "Hard": {
+          "value": 4,
+          "rt": 891.4
+        }
+      },
+      "hot air baloons.jpg": {
+        "Realistic": {
+          "value": 62,
+          "rt": 1232.9
+        },
+        "Likely": {
+          "value": 0,
+          "rt": 1930.1
+        },
+        "Complicated": {
+          "value": 6,
+          "rt": 912.6
+        },
+        "Hard": {
+          "value": 3,
+          "rt": 1066.6
+        }
+      }
+    }
+  },
+  "53": {
+    "sex": "Male",
+    "age": "24",
+    "subject_id": 53,
+    "PROLIFIC_PID": "1",
+    "STUDY_ID": "2",
+    "SESSION_ID": "3",
+    "images": {
+      "boat overhead.jpg": {
+        "Realistic": {
+          "value": 91,
+          "rt": 17198.9
+        },
+        "Likely": {
+          "value": 1,
+          "rt": 2428.2
+        },
+        "Complicated": {
+          "value": 5,
+          "rt": 1328.4
+        },
+        "Hard": {
+          "value": 3,
+          "rt": 948.4
+        }
+      },
+      "fruit market stand.jpg": {
+        "Realistic": {
+          "value": 8,
+          "rt": 2047.1
+        },
+        "Likely": {
+          "value": 2,
+          "rt": 1318.9
+        },
+        "Complicated": {
+          "value": 3,
+          "rt": 991.0
+        },
+        "Hard": {
+          "value": 0,
+          "rt": 1940.7
+        }
+      },
+      "abbey.jpg": {
+        "Realistic": {
+          "value": 100,
+          "rt": 46984.2
+        },
+        "Likely": {
+          "value": 6,
+          "rt": 1391.9
+        },
+        "Complicated": {
+          "value": 5,
+          "rt": 1251.3
+        },
+        "Hard": {
+          "value": 4,
+          "rt": 807.4
+        }
+      },
+      "trail.jpg": {
+        "Realistic": {
+          "value": 100,
+          "rt": 1972.8
+        },
+        "Likely": {
+          "value": 4,
+          "rt": 1108.1
+        },
+        "Complicated": {
+          "value": 2,
+          "rt": 2345.4
+        },
+        "Hard": {
+          "value": 0,
+          "rt": 1351.4
+        }
+      },
+      "runway.jpg": {
+        "Realistic": {
+          "value": 92,
+          "rt": 1677.6
+        },
+        "Likely": {
+          "value": 6,
+          "rt": 1635.1
+        },
+        "Complicated": {
+          "value": 0,
+          "rt": 1915.2
+        },
+        "Hard": {
+          "value": 3,
+          "rt": 2437.1
+        }
+      },
+      "two people standing.jpg": {
+        "Realistic": {
+          "value": 100,
+          "rt": 1807.1
+        },
+        "Likely": {
+          "value": 1,
+          "rt": 1025.8
+        },
+        "Complicated": {
+          "value": 5,
+          "rt": 1462.8
+        },
+        "Hard": {
+          "value": 4,
+          "rt": 891.4
+        }
+      },
+      "hot air baloons.jpg": {
+        "Realistic": {
+          "value": 62,
+          "rt": 1232.9
+        },
+        "Likely": {
+          "value": 0,
+          "rt": 1930.1
+        },
+        "Complicated": {
+          "value": 6,
+          "rt": 912.6
+        },
+        "Hard": {
+          "value": 3,
+          "rt": 1066.6
+        }
+      }
+    }
+  }
+}

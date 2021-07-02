@@ -1,38 +1,44 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Image Difference Detection</title>
-        
-        <!-- Repo -->
-        <base id="base-url" href="https://ufpaclab.github.io/ImageDifferenceDetection/" target="_blank">
 
-        <!-- jsPsych -->
-        <script src="jspsych/jspsych.js"></script>
-                
-        <!-- jsPsych Plugins -->
-        <script src="jspsych/plugins/jspsych-html-keyboard-response.js"></script>
-        <script src="jspsych/plugins/jspsych-instructions.js"></script>
-        <script src="jspsych/plugins/jspsych-html-slider-response.js"></script>
-        <script src="jspsych/plugins/jspsych-survey-likert.js"></script>
-        <script src="jspsych/plugins/jspsych-external-html.js"></script>
-        <script src="jspsych/plugins/jspsych-survey-multi-choice.js"></script>
-        <script src="jspsych/plugins/jspsych-survey-text.js"></script>
+<head>
+    <title>Image Difference Detection</title>
+
+    <!-- Repo -->
+    <base id="base-url" href="https://ufpaclab.github.io/ImageDifferenceDetection/" target="_blank">
+
+    <!-- jsPsych -->
+    <script src="jspsych/jspsych.js"></script>
+
+    <!-- jsPsych Plugins -->
+    <script src="jspsych/plugins/jspsych-html-keyboard-response.js"></script>
+    <script src="jspsych/plugins/jspsych-instructions.js"></script>
+    <script src="jspsych/plugins/jspsych-html-slider-response.js"></script>
+    <script src="jspsych/plugins/jspsych-survey-likert.js"></script>
+    <script src="jspsych/plugins/jspsych-external-html.js"></script>
+    <script src="jspsych/plugins/jspsych-survey-multi-choice.js"></script>
+    <script src="jspsych/plugins/jspsych-survey-text.js"></script>
 
 
-        <!-- Style Sheets-->
-        <link href="jspsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
-        <link href="format.css" rel="stylesheet" type="text/css"></link>
+    <!-- Style Sheets-->
+    <link href="jspsych/css/jspsych.css" rel="stylesheet" type="text/css">
+    </link>
+    <link href="format.css" rel="stylesheet" type="text/css">
+    </link>
 
-        <!-- jsSheet -->
-        <script src="jsSheet/Session.js"></script>
+    <!-- jsSheet -->
+    <script src="jsSheet/Session.js"></script>
 
-        <!-- Experiment Files -->
-        <script src="ImageDifferenceDetection.js"></script>
-        <script src="resources/ImageManifest.js"></script>
-    </head>
-    <body>
-        <script>
-            ImageDifferenceDetection(jsPsych, {PROLIFIC_PID: <?= PROLIFIC_PID ?>, STUDY_ID: <?= STUDY_ID ?>, SESSION_ID: <?= SESSION_ID ?>})
-        </script>
-    </body>
+    <!-- Experiment Files -->
+    <script src="ImageDifferenceDetection.js"></script>
+    <script src="resources/ImageManifest.js"></script>
+</head>
+
+<body>
+    <script>
+        // ImageDifferenceDetection(jsPsych, {})
+        ImageDifferenceDetection(jsPsych, { PROLIFIC_PID: <?= PROLIFIC_PID ?>, STUDY_ID: <?= STUDY_ID ?>, SESSION_ID: <?= SESSION_ID ?>})
+    </script>
+</body>
+
 </html>
